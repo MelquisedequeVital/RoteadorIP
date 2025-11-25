@@ -1,0 +1,11 @@
+# Diretórios gerados pelo Maven
+/target/
+
+# Arquivos e diretórios de IDEs comuns
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+/out/
+.DS_Store
