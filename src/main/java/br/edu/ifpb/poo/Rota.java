@@ -3,6 +3,7 @@ package br.edu.ifpb.poo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @NoArgsConstructor
 
@@ -30,5 +31,17 @@ public class Rota {
         this.gateway = gateway;
         this.mask = mask;
         this.netInterface = netInterface;
+    }
+
+    public int calculaCIDR(){
+        int cidr = 0;
+
+
+        for(int numero: this.mask){
+            String binario = Integer.toBinaryString(numero);
+            cidr += binario.length() - binario.replace("1", "").length();
+        }
+
+        return cidr;
     }
 }
