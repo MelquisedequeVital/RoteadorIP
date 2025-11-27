@@ -4,18 +4,47 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 
 @Data
-@NoArgsConstructor
+
 public class RoteadorIp {
-    private LinkedList<String> tabelaRoteamento;
-    private ArrayList<String> interfaces;
-    private static final int DESTINATION_IP = 0;
-    private static final int GATEWAY  = 1;
-    private static final int MASK  = 2;
-    private static final int INTERFACE  = 3;
+    private ArrayList<Rota> tabelaRoteamento = new ArrayList<>();
+    private LinkedList<String> netInterfaceList = new LinkedList<>();
+    private static final int[] DEFAULT_IP = {0,0,0,0};
+    private static final int[] DEFAULT_MASK = {0,0,0,0};
+    private static final int[] DEFAULT_GATEWAY = {0,0,0,0};
+    private static final String DEFAULT_NET_INTERFACE = "eth1";
+
+
+    public RoteadorIp(){
+        netInterfaceList.add(DEFAULT_NET_INTERFACE);
+        tabelaRoteamento.add(new Rota(DEFAULT_IP, DEFAULT_MASK, DEFAULT_MASK, DEFAULT_NET_INTERFACE));
+    }
+
+    public void cadastrarInterface(String netInterface){
+        if(!netInterfaceList.contains(netInterface)){
+            netInterfaceList.add(netInterface);
+        }
+        else{
+            throw new IllegalArgumentException("Interface já cadastrada");
+        }
+    }
+
+    public void cadastrarRota(int[] ip, int[] gateway, int[] mask, String netInterface){
+        if(!netInterfaceList.contains(netInterface)){
+            throw new IllegalArgumentException("Interface não cadastrada");
+        }
+
+        tabelaRoteamento.add(new Rota(ip, gateway, mask, netInterface));
+
+    }
+
+    public void resetarTabela(){
+        tabelaRoteamento.clear();
+    }
+
 
 
 }
