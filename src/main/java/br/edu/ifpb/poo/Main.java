@@ -114,7 +114,7 @@ public class Main {
         System.out.println("\n--- Testando o Cálculo de Rota ---");
         
         // IP de destino para teste
-        int[] ipDestino = {192, 168, 1, 50};
+        int[] ipDestino = {200, 168, 1, 50};
         System.out.println("IP de Destino: " + Arrays.toString(ipDestino));
         
         Rota melhorRota = roteador.calcularRota(ipDestino);
