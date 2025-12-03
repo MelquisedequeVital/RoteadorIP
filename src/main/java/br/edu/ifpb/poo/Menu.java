@@ -16,7 +16,7 @@ public class Menu {
                     + "|| 3 - Visualizar Tabela de Rotas       ||\n"
                     + "|| 4 - Alterar Rota                     ||\n"
                     + "|| 5 - Excluir Rota                     ||\n"
-                    + "|| 6 - Escolher Tipo de Exibição        ||\n"
+                    + "|| 6 - Trocar Tipo de Exibição          ||\n"
                     + "|| 7 - Rotear um IP                     ||\n"
                     + "|| 8 - Resetar Tabela de Rotas          ||\n"
                     + "========================================\n"

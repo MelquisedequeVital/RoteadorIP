@@ -73,10 +73,7 @@ public class Main {
                     if (roteador.getTabelaRoteamento().isEmpty()) {
                         System.out.println(">> Tabela vazia.");
                         } else {
-                            System.out.println("\n--- Tabela de Roteamento Atual ---");
-                            for (Rota r : roteador.getTabelaRoteamento()) {
-                                System.out.println(r.toString()); 
-                            }
+                            System.out.println(roteador);
                             }
                             break;
 
@@ -144,7 +141,14 @@ public class Main {
 
 
                 case 6:
-                    System.out.println("-> Opção 6: Escolher Tipo de Exibição (Implementação Pendente)");
+                    System.out.println("-> Opção 6: Trocar Tipo de Exibição");
+                    roteador.mudarNotacao();
+                    System.out.print("Tipo de exibição trocada com Sucesso para: ");
+                    if(roteador.isNotacaoCIDR()){
+                        System.out.println("Notação CIDR");
+                    } else {
+                        System.out.println("Notação em bytes");
+                    }
                     break;
 
 
@@ -208,9 +212,8 @@ public class Main {
                         System.out.println("Opção inválida. Digite 'S' para continuar ou 'N' para encerrar.");
                     }
                     
-                } while (entradaInvalida); // Repete enquanto a entrada for diferente de S ou N
+                } while (entradaInvalida); 
                 
-                // Se a resposta final (válida) for 'N', o programa encerra.
                 if (confirmacao.equals("N")) {
                     continuar = false;
                 }

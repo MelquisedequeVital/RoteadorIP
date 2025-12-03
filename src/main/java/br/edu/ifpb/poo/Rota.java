@@ -60,7 +60,7 @@ public class Rota {
         String maskStr = mask[0] + "." + mask[1] + "." + mask[2] + "." + mask[3];
         String gwStr = gateway[0] + "." + gateway[1] + "." + gateway[2] + "." + gateway[3];
 
-        return String.format("Dest: %-15s | Mask: %-15s | Gw: %-15s | Iface: %s (CIDR /%d)", 
-                             destStr, maskStr, gwStr, netInterface, calculaCIDR());
+        return String.format("Dest: %-15s | Mask: %-15s | Gw: %-15s | Iface: %s", 
+                             destStr, maskStr, gwStr, netInterface);
     }
 }

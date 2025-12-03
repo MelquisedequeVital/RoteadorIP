@@ -16,6 +16,7 @@ public class RoteadorIp {
     private ArrayList<Rota> tabelaRoteamento = new ArrayList<>();
     private LinkedList<String> netInterfaceList = new LinkedList<>();
     private final int[] IP_DEFAULT = {0,0,0,0};
+    private boolean notacaoCIDR = false;
 
 
     public void cadastrarInterface(String netInterface){
@@ -126,5 +127,32 @@ public class RoteadorIp {
             }
         }
         return false; 
+    }
+
+    public void mudarNotacao(){
+        if(notacaoCIDR == false){
+            notacaoCIDR = true;
+        } else{
+            notacaoCIDR = false;
+        }
+    }
+
+    @Override
+    public String toString(){
+        String tabelaString = "";
+        if(notacaoCIDR){
+            for (Rota r : tabelaRoteamento) {
+                int cidr = r.calculaCIDR(); 
+                String cidrFormatado = String.format("| CIDR: %-15s", "/" + cidr);
+                String regexCorrigida = "\\| Mask:\\s*\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\s*";
+                tabelaString = tabelaString + r.toString().replaceAll(regexCorrigida, cidrFormatado) + "\n";
+            }
+        } else{
+            for (Rota r : tabelaRoteamento) {
+                tabelaString = tabelaString + r.toString() + "\n"; 
+            }
+        }
+
+        return tabelaString;
     }
 }
