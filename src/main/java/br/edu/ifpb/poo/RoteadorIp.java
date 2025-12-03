@@ -107,15 +107,19 @@ public class RoteadorIp {
         return false; 
     }
 
-    public boolean atualizarRota(int[] destinationIp, int[] mask, int[] novoGateway, String novaInterface) {
-        for (Rota rota : tabelaRoteamento) {
-            if (Arrays.equals(rota.getDestinationIp(), destinationIp) && 
-                Arrays.equals(rota.getMask(), mask)) {
-                
-                if (!netInterfaceList.contains(novaInterface)) {
-                    throw new IllegalArgumentException("Interface não cadastrada");
-                }
+    public boolean atualizarRota(int[] ipAntigo, int[] maskAntiga, int[] novoIp, int[] novaMask, int[] novoGateway, String novaInterface) {
 
+        if (!netInterfaceList.contains(novaInterface)) {
+            throw new IllegalArgumentException("Interface não cadastrada");
+        }
+
+        for (Rota rota : tabelaRoteamento) {
+            if (Arrays.equals(rota.getDestinationIp(), ipAntigo) && 
+                Arrays.equals(rota.getMask(), maskAntiga)) {
+                
+                // Como já validamos a interface, basta atualizar
+                rota.setDestinationIp(novoIp);
+                rota.setMask(novaMask);
                 rota.setGateway(novoGateway);
                 rota.setNetInterface(novaInterface);
                 return true; 
@@ -123,6 +127,4 @@ public class RoteadorIp {
         }
         return false; 
     }
-    
-
 }

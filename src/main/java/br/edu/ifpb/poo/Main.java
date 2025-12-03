@@ -82,34 +82,40 @@ public class Main {
 
 
                 case 4:
-                    System.out.println("-> Opção 4: Alterar Rota");
-                    System.out.println("\n--- Atualizar Rota ---");
+                    System.out.println("-> Opção 4: Alterar Rota Completa");
+                    System.out.println("\n--- Identifique a Rota a ser alterada ---");
                     
-                    System.out.println("(Identifique a rota pelo Destino e Máscara)");
+                    System.out.print("   IP Destino ATUAL: ");
+                    String destAntigoStr = Menu.receberEntrada().trim();
+                    int[] destAntigo = Menu.converterIpParaOctetos(destAntigoStr, "IP Destino Atual");
                     
-                    System.out.print("   IP Destino: ");
-                    String destAttStr = Menu.receberEntrada().trim();
-                    int[] destAtt = Menu.converterIpParaOctetos(destAttStr, "IP Destino");
+                    System.out.print("   Máscara ATUAL: ");
+                    String maskAntigaStr = Menu.receberEntrada().trim();
+                    int[] maskAntiga = Menu.converterIpParaOctetos(maskAntigaStr, "Máscara Atual");
                     
-                    System.out.print("   Máscara: ");
-                    String maskAttStr = Menu.receberEntrada().trim();
-                    int[] maskAtt = Menu.converterIpParaOctetos(maskAttStr, "Máscara");
+                    System.out.println("\n--- Digite os NOVOS dados da Rota ---");
                     
-                    System.out.println("\n(Novos dados)");
+                    System.out.print("   NOVO IP Destino: ");
+                    String novoDestStr = Menu.receberEntrada().trim();
+                    int[] novoDest = Menu.converterIpParaOctetos(novoDestStr, "Novo IP Destino");
+
+                    System.out.print("   NOVA Máscara: ");
+                    String novaMaskStr = Menu.receberEntrada().trim();
+                    int[] novaMask = Menu.converterIpParaOctetos(novaMaskStr, "Nova Máscara");
                     
-                    System.out.print("   Novo Gateway: ");
+                    System.out.print("   NOVO Gateway: ");
                     String newGwStr = Menu.receberEntrada().trim();
                     int[] newGw = Menu.converterIpParaOctetos(newGwStr, "Novo Gateway");
                     
-                    System.out.print("   Nova Interface: ");
+                    System.out.print("   NOVA Interface: ");
                     String newIface = Menu.receberEntrada().trim();
 
-                    boolean atualizou = roteador.atualizarRota(destAtt, maskAtt, newGw, newIface);
+                    boolean atualizou = roteador.atualizarRota(destAntigo, maskAntiga, novoDest, novaMask, newGw, newIface);
                     
                     if (atualizou) {
                         System.out.println(">> Rota atualizada com sucesso!");
                     } else {
-                        System.out.println(">> Erro: Rota não encontrada. Verifique se o IP Destino/Máscara estão corretos.");
+                        System.out.println(">> Erro: Rota antiga não encontrada. Verifique se o IP/Máscara atuais estão corretos.");
                     }
                     break;
 
