@@ -43,6 +43,16 @@ public class Rota {
 
         return cidr;
     }
+
+    public int[] calcularRede(){
+        int[] rede = new int[4];
+        for (int i = 0; i < rede.length; i++) {
+            rede[i] = destinationIp[i] & mask[i];
+        }
+
+        return rede;
+    }
+
     @Override
     public String toString() {
 

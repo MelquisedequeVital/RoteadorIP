@@ -41,26 +41,40 @@ public class RoteadorIp {
         Rota rotaAtual;
         int bestMatch = 0;
         int maiorCIDR = 0;
-        int match = 0;
 
         for(Rota rota: tabelaRoteamento){
-        match = 0;
+        boolean match = false;
         rotaAtual = rota;
-        int[] ipAtual = rotaAtual.getDestinationIp();
+        int[] mascaraAtual = rotaAtual.getMask();
+        int[] redeAtual = rotaAtual.calcularRede();
+        int[] verificaRede = new int[4];
 
-        for(int ipIndex = 0; ipIndex < ipAtual.length; ipIndex++){
-            if(ipAtual[ipIndex] == ip[ipIndex]){
-                match++;
-            } else {
-                break;
+        for (int i = 0; i < 4; i++) {
+            verificaRede[i] = ip[i] & mascaraAtual[i];
+        }
+
+        if(Arrays.equals(verificaRede, redeAtual)){
+            if(rotaAtual.calculaCIDR() > maiorCIDR){
+                rotaCalculada = rotaAtual;
+                maiorCIDR = rotaAtual.calculaCIDR();
             }
         }
 
-        if(match > bestMatch && rotaAtual.calculaCIDR() > maiorCIDR){
-            bestMatch = match;
-            maiorCIDR = rotaAtual.calculaCIDR();
-            rotaCalculada = rotaAtual;
-        }
+        // for(int ipIndex = 0; ipIndex < ipAtual.length; ipIndex++){
+        //     if(ipAtual[ipIndex] == ip[ipIndex]){
+        //         match++;
+        //     } else {
+        //         break;
+        //     }
+        // }
+
+        // if(match > bestMatch && rotaAtual.calculaCIDR() > maiorCIDR){
+        //     bestMatch = match;
+        //     maiorCIDR = rotaAtual.calculaCIDR();
+        //     rotaCalculada = rotaAtual;
+        // }
+
+
         }
 
         if(rotaCalculada == null){
