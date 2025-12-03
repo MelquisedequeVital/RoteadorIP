@@ -48,7 +48,7 @@ public class Menu {
     }
     }
 
-    public static int[] converterIpParaOctetos(String ipStr, String prompt) throws NumberFormatException, IllegalArgumentException {
+    public static int[] converterIpParaOctetos(String ipStr, String prompt){
         String[] partes = ipStr.split("\\.");
 
         if (partes.length != 4) {

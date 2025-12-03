@@ -118,7 +118,7 @@ public class RoteadorIp {
             if (Arrays.equals(rota.getDestinationIp(), ipAntigo) && 
                 Arrays.equals(rota.getMask(), maskAntiga)) {
                 
-                // Como já validamos a interface, basta atualizar
+                
                 rota.setDestinationIp(novoIp);
                 rota.setMask(novaMask);
                 rota.setGateway(novoGateway);
@@ -139,7 +139,7 @@ public class RoteadorIp {
 
     @Override
     public String toString(){
-        String tabelaString = "";
+        String tabelaString = "----------------------------------------TABELA DE ROTEAMENTO----------------------------------------\n";
         if(notacaoCIDR){
             for (Rota r : tabelaRoteamento) {
                 int cidr = r.calculaCIDR(); 
