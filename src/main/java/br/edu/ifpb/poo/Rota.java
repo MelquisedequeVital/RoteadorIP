@@ -43,4 +43,14 @@ public class Rota {
 
         return cidr;
     }
+    @Override
+    public String toString() {
+
+        String destStr = destinationIp[0] + "." + destinationIp[1] + "." + destinationIp[2] + "." + destinationIp[3];
+        String maskStr = mask[0] + "." + mask[1] + "." + mask[2] + "." + mask[3];
+        String gwStr = gateway[0] + "." + gateway[1] + "." + gateway[2] + "." + gateway[3];
+
+        return String.format("Dest: %-15s | Mask: %-15s | Gw: %-15s | Iface: %s (CIDR /%d)", 
+                             destStr, maskStr, gwStr, netInterface, calculaCIDR());
+    }
 }

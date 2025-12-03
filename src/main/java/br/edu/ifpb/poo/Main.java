@@ -71,19 +71,16 @@ public class Main {
             try {
                 switch (input) {
                     case "1": // Listar
-                        if (roteador.getTabelaRoteamento().isEmpty()) {
-                            System.out.println(">> Tabela vazia.");
-                        } else {
-                            System.out.println("\n--- Tabela de Roteamento Atual ---");
-                            for (Rota r : roteador.getTabelaRoteamento()) {
-                                System.out.printf("Dest: %-15s | Mask: %-15s | Gw: %-12s | Iface: %s\n",
-                                    formatIp(r.getDestinationIp()),
-                                    formatIp(r.getMask()),
-                                    formatIp(r.getGateway()),
-                                    r.getNetInterface());
+                            if (roteador.getTabelaRoteamento().isEmpty()) {
+                                System.out.println(">> Tabela vazia.");
+                            } else {
+                                System.out.println("\n--- Tabela de Roteamento Atual ---");
+                                for (Rota r : roteador.getTabelaRoteamento()) {
+                                    // AGORA FICOU MUITO MAIS SIMPLES:
+                                    System.out.println(r.toString()); 
+                                }
                             }
-                        }
-                        break;
+                            break;
 
                     case "2": 
                         System.out.println("\n--- Remover Rota ---");
