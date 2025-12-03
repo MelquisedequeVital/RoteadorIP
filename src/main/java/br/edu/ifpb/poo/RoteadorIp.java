@@ -110,8 +110,5 @@ public class RoteadorIp {
         return false; 
     }
     
-    public ArrayList<Rota> getTabelaRoteamento() {
-        return tabelaRoteamento;
-    }
 
 }

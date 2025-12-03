@@ -57,7 +57,6 @@ public class Menu {
 
         int[] ip = new int[4];
         for (int i = 0; i < 4; i++) {
-            // NumberFormatException ocorrerá aqui se não for número
             int octeto = Integer.parseInt(partes[i].trim()); 
             
             if (octeto < 0 || octeto > 255) {

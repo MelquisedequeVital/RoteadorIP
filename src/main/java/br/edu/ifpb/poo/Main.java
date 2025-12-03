@@ -51,7 +51,7 @@ public class Main {
                     String maskStr = Menu.receberEntrada().trim();
                     int[] mask = Menu.converterIpParaOctetos(maskStr, "Máscara de Rede");
 
-                    // 4. Obter a Interface
+                    
                     System.out.print("   Digite o nome da Interface de Saída: ");
                     String netInterface = Menu.receberEntrada().trim();
 
@@ -60,27 +60,88 @@ public class Main {
                         break;
                     }
 
-                    // 5. Cadastrar a rota
                     roteador.cadastrarRota(destinationIp, gateway, mask, netInterface);
 
-                    // 6. Feedback de sucesso
+                    
                     System.out.println("   Sucesso: Rota para " 
                         + ipDestinoStr 
                         + " cadastrada via interface " + netInterface + ".");
                     break;
+
+
                 case 3:
-                    System.out.println("-> Opção 3: Visualizar Tabela de Rotas (Implementação Pendente)");
-                    System.out.println(roteador.getTabelaRoteamento());
-                    break;
+                    if (roteador.getTabelaRoteamento().isEmpty()) {
+                        System.out.println(">> Tabela vazia.");
+                        } else {
+                            System.out.println("\n--- Tabela de Roteamento Atual ---");
+                            for (Rota r : roteador.getTabelaRoteamento()) {
+                                System.out.println(r.toString()); 
+                            }
+                            }
+                            break;
+
+
                 case 4:
-                    System.out.println("-> Opção 4: Alterar Rota (Implementação Pendente)");
+                    System.out.println("-> Opção 4: Alterar Rota");
+                    System.out.println("\n--- Atualizar Rota ---");
+                    
+                    System.out.println("(Identifique a rota pelo Destino e Máscara)");
+                    
+                    System.out.print("   IP Destino: ");
+                    String destAttStr = Menu.receberEntrada().trim();
+                    int[] destAtt = Menu.converterIpParaOctetos(destAttStr, "IP Destino");
+                    
+                    System.out.print("   Máscara: ");
+                    String maskAttStr = Menu.receberEntrada().trim();
+                    int[] maskAtt = Menu.converterIpParaOctetos(maskAttStr, "Máscara");
+                    
+                    System.out.println("\n(Novos dados)");
+                    
+                    System.out.print("   Novo Gateway: ");
+                    String newGwStr = Menu.receberEntrada().trim();
+                    int[] newGw = Menu.converterIpParaOctetos(newGwStr, "Novo Gateway");
+                    
+                    System.out.print("   Nova Interface: ");
+                    String newIface = Menu.receberEntrada().trim();
+
+                    boolean atualizou = roteador.atualizarRota(destAtt, maskAtt, newGw, newIface);
+                    
+                    if (atualizou) {
+                        System.out.println(">> Rota atualizada com sucesso!");
+                    } else {
+                        System.out.println(">> Erro: Rota não encontrada. Verifique se o IP Destino/Máscara estão corretos.");
+                    }
                     break;
+
+
                 case 5:
-                    System.out.println("-> Opção 5: Excluir Rota (Implementação Pendente)");
+                    System.out.println("-> Opção 5: Excluir Rota");
+                    System.out.println("\n--- Remover Rota ---");
+
+                    System.out.print("   Digite o IP Destino da rota a remover (a.b.c.d): ");
+                    String destStr = Menu.receberEntrada().trim();
+                    int[] destRem = Menu.converterIpParaOctetos(destStr, "IP de Destino");
+                    
+                    System.out.print("   Digite a Máscara da rota a remover (a.b.c.d): ");
+                    String maskString = Menu.receberEntrada().trim();
+                    int[] maskRem = Menu.converterIpParaOctetos(maskString, "Máscara");
+                    
+                    
+                    boolean removeu = roteador.removerRota(destRem, maskRem); 
+                    
+                    if (removeu) {
+                        System.out.println(">> Rota para " + destStr + " removida com sucesso!");
+                    } else {
+                        System.out.println(">> Erro: Rota não encontrada.");
+                    }
                     break;
+
+
                 case 6:
                     System.out.println("-> Opção 6: Escolher Tipo de Exibição (Implementação Pendente)");
                     break;
+
+
                 case 7:
                     System.out.println("-> Opção 7: Rotear um IP");
                     
@@ -88,15 +149,15 @@ public class Main {
                     String ipConsultaStr = Menu.receberEntrada().trim();
                     int[] ipConsulta = Menu.converterIpParaOctetos(ipConsultaStr, "IP para rotamento");
                     
-                    // 2. Calcular a rota
+                    
                     Rota rotaCalculada = roteador.calcularRota(ipConsulta);
 
-                    // 3. Exibir o resultado
+                    
                     System.out.println("\n----------------------------------------");
                     System.out.println("   Resultado do Rotamento para " + ipConsultaStr);
                     
                     if (rotaCalculada != null) {
-                        // Constrói a string do Destino e Gateway
+                        
                         String destino = rotaCalculada.getDestinationIp()[0] + "." 
                                     + rotaCalculada.getDestinationIp()[1] + "." 
                                     + rotaCalculada.getDestinationIp()[2] + "." 
@@ -116,6 +177,8 @@ public class Main {
                     }
                     System.out.println("----------------------------------------");
                     break;
+
+
                 case 8:
                     System.out.println("\n-> Opção 8: Resetar Tabela de Rotas");
                     roteador.resetarTabela(); 
