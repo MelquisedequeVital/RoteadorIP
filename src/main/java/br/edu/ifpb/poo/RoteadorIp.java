@@ -2,11 +2,10 @@ package br.edu.ifpb.poo;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-
+import java.util.Iterator; 
+import java.util.Arrays;   
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
 
 @Data
 @NoArgsConstructor
@@ -68,6 +67,39 @@ public class RoteadorIp {
         tabelaRoteamento.clear();
     }
 
+    public boolean removerRota(int[] destinationIp, int[] mask) {
+        Iterator<Rota> iterator = tabelaRoteamento.iterator();
+        while (iterator.hasNext()) {
+            Rota rota = iterator.next();
+      
+            if (Arrays.equals(rota.getDestinationIp(), destinationIp) && 
+                Arrays.equals(rota.getMask(), mask)) {
+                iterator.remove();
+                return true; 
+            }
+        }
+        return false; 
+    }
 
+    public boolean atualizarRota(int[] destinationIp, int[] mask, int[] novoGateway, String novaInterface) {
+        for (Rota rota : tabelaRoteamento) {
+            if (Arrays.equals(rota.getDestinationIp(), destinationIp) && 
+                Arrays.equals(rota.getMask(), mask)) {
+                
+                if (!netInterfaceList.contains(novaInterface)) {
+                    throw new IllegalArgumentException("Interface não cadastrada");
+                }
+
+                rota.setGateway(novoGateway);
+                rota.setNetInterface(novaInterface);
+                return true; 
+            }
+        }
+        return false; 
+    }
+    
+    public ArrayList<Rota> getTabelaRoteamento() {
+        return tabelaRoteamento;
+    }
 
 }

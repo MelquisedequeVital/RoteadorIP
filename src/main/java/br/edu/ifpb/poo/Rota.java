@@ -36,7 +36,6 @@ public class Rota {
     public int calculaCIDR(){
         int cidr = 0;
 
-
         for(int numero: this.mask){
             String binario = Integer.toBinaryString(numero);
             cidr += binario.length() - binario.replace("1", "").length();
