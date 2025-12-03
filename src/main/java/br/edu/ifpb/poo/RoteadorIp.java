@@ -2,6 +2,8 @@ package br.edu.ifpb.poo;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Arrays;
+
 import java.util.Iterator; 
 import java.util.Arrays;   
 import lombok.Data;
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class RoteadorIp {
     private ArrayList<Rota> tabelaRoteamento = new ArrayList<>();
     private LinkedList<String> netInterfaceList = new LinkedList<>();
+    private final int[] IP_DEFAULT = {0,0,0,0};
 
 
     public void cadastrarInterface(String netInterface){
@@ -38,9 +41,10 @@ public class RoteadorIp {
         Rota rotaAtual;
         int bestMatch = 0;
         int maiorCIDR = 0;
+        int match = 0;
 
         for(Rota rota: tabelaRoteamento){
-        int match = 0;
+        match = 0;
         rotaAtual = rota;
         int[] ipAtual = rotaAtual.getDestinationIp();
 
@@ -56,7 +60,15 @@ public class RoteadorIp {
             bestMatch = match;
             maiorCIDR = rotaAtual.calculaCIDR();
             rotaCalculada = rotaAtual;
-        } 
+        }
+        }
+
+        if(rotaCalculada == null){
+            for(Rota rota:tabelaRoteamento){
+                if(Arrays.equals(rota.getDestinationIp(),IP_DEFAULT)){
+                    rotaCalculada = rota;
+                }
+            }
 
         }
 
